@@ -1,0 +1,15 @@
+---
+ansible_ssh_pipelining: true
+
+# Create this user as the main user for the app
+app_user:
+  username: "ubuntu"
+
+app_name: "flaskapp"
+
+apps_directory: "/home/{{app_user.username}}/apps"
+log_directory: '/var/log/{{ app_name }}'
+
+app_directory: "{{ apps_directory }}/{{ app_name }}"
+venv_directory: "{{ app_directory }}/env"
+static_directory: "{{ app_directory }}/static"
