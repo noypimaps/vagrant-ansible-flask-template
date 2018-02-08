@@ -1,1 +1,1 @@
-from segyapp import app
+from flaskapp import app

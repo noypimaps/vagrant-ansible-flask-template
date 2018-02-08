@@ -12,17 +12,10 @@ app_name: "flaskapp"
 app_directory: "/home/{{ app_user.username }}/apps/{{ app_name }}"
 log_directory: '/var/log/{{ app_name }}'
 
-src_directory: "{{ app_directory }}/flaskapp"
-venv_directory: "{{ app_directory }}/flaskapp/env"
+src_directory: "{{ app_directory }}"
+venv_directory: "{{ app_directory }}/env"
 
 domain_name: "flaskapp.example.com"
 nginx:
   config_name: flaskapp
   server_name: flaskapp
-
-postgres:
-  username: "{{app_title}}user"
-  password: "{{app_title}}password"
-  dbname: "{{app_title}}db"
-  host: "localhost"
-  port: "5432"

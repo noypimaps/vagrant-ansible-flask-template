@@ -54,4 +54,5 @@
   pip:
     requirements: "{{ app_directory }}/requirements.txt"
     virtualenv: "{{ venv_directory }}"
+
 - include: nginx.yml
