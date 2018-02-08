@@ -12,10 +12,10 @@ app_name: "flaskapp"
 app_directory: "/home/{{ app_user.username }}/apps/{{ app_name }}"
 log_directory: '/var/log/{{ app_name }}'
 
-api_src_directory: "{{ app_directory }}/flaskapp"
-api_venv_directory: "{{ app_directory }}/flaskapp/env"
+src_directory: "{{ app_directory }}/flaskapp"
+venv_directory: "{{ app_directory }}/flaskapp/env"
 
-api_domain_name: "flaskapp.example.com"
+domain_name: "flaskapp.example.com"
 nginx:
   config_name: flaskapp
   server_name: flaskapp

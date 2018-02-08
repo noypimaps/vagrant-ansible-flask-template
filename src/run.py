@@ -1,0 +1,1 @@
+from segyapp import app

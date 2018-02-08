@@ -1,0 +1,26 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
+  config.vm.synced_folder "../src", "/home/ubuntu/apps/", create: true
+  config.vm.define "web"
+
+  config.ssh.forward_agent = true
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+  end
+
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.extra_vars = {
+      "is_vagrant" => true
+    }
+    ansible.groups = {
+      "app" => ["web"]
+    }
+    ansible.verbose = true
+    ansible.install_mode = "pip"
+    ansible.playbook = "playbooks/provision.yml"
+  end
+
+end
+

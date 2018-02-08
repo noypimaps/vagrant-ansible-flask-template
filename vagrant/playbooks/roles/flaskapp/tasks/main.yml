@@ -1,0 +1,57 @@
+- name: Ensure locale is set to en_PH.UTF-8
+  become: true
+  locale_gen:
+    name: en_PH.UTF-8
+    state: present
+
+- name: Updates apt cache
+  become: true
+  action: apt update_cache=true
+
+- name: Install python 3.6.2 dependencies
+  become: true
+  apt: name={{item}} state=installed
+  with_items:
+    - build-essential
+    - checkinstall
+    - libreadline-gplv2-dev
+    - libncursesw5-dev
+    - libssl-dev
+    - libsqlite3-dev
+    - tk-dev
+    - libgdbm-dev
+    - libc6-dev
+    - libbz2-dev
+
+- name: Extract python 3.6.2
+  become: true
+  unarchive:
+    src: https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz
+    dest: /opt/
+    remote_src: true
+  args:
+    creates: /opt/Python-3.6.2/configure
+
+- name: Install python3.6.2
+  become: true
+  shell: |
+    cd /opt/Python-3.6.2
+    ./configure
+    sudo make
+    sudo make altinstall
+  args:
+    chdir: /opt/Python-3.6.2
+    creates: /usr/local/bin/python3.6
+
+- name: Create virtualenv
+  become: yes
+  command: python3.6 -m venv {{ venv_directory }}
+  args:
+    creates: "{{ venv_directory }}"
+
+- name: Install requirements
+  become: yes
+  pip:
+    requirements: "{{ app_directory }}/requirements.txt"
+    virtualenv: "{{ venv_directory }}"
+- include: nginx.yml

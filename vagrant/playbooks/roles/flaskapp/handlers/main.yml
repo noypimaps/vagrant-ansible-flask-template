@@ -1,0 +1,10 @@
+---
+  - name: Update nginx config file
+   become: yes
+   template:
+     src: templates/app_flask_nginx_conf.j2
+     dest: '/etc/nginx/sites-available/{{ nginx.config_name }}'
+   notify:
+     - create nginx symlink
+     - restart nginx
+  
