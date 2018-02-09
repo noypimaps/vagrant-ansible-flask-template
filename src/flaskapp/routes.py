@@ -5,5 +5,5 @@ import json
 @app.route("/", methods=['GET'])
 def index():
     message = {}
-    message['model'] = 'hello from the ansible flask'
+    message['detail'] = 'hello from the ansible flask'
     return jsonify(message)

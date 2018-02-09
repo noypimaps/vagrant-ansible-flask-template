@@ -1,3 +1,14 @@
+---
+- name: Ensure log directory exists
+  become: yes
+  file:
+    path: "{{ log_directory }}"
+    owner: "{{ app_user.username }}"
+    group: "{{ app_user.username }}"
+    mode: '777'
+    state: directory
+    recurse: yes
+
 - name: Ensure locale is set to en_PH.UTF-8
   become: true
   locale_gen:
